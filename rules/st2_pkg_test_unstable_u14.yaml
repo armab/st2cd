@@ -1,0 +1,20 @@
+---
+    name: "st2_pkg_test_unstable_u14"
+    description: "Run package tests on package build"
+    pack: "st2cd"
+    enabled: true
+    trigger:
+        type: "circle_ci.build_event"
+    criteria:
+        trigger.body.payload.branch:
+            pattern: "master"
+            type: "equals"
+        trigger.body.payload.vcs_url:
+            pattern: "https://github.com/StackStorm/st2"
+            type: "equals"
+    action:
+        ref: "st2cd.st2_pkg_e2e_test"
+        parameters:
+            hostname: "st2-pkg-test-unstable-u14"
+            release: "unstable"
+            distro: "UBUNTU14"
